@@ -28,7 +28,6 @@ function hasEulerianCircuit(nodes, edges) {
 function findEulerianCircuit(edges, nodes) {
   const graph = {};
 
-  // Crear el grafo con las conexiones entre nodos
   for (const edge of edges) {
     if (!graph[edge.source]) graph[edge.source] = [];
     if (!graph[edge.target]) graph[edge.target] = [];
@@ -53,16 +52,13 @@ function findEulerianCircuit(edges, nodes) {
     }
   }
 
-  // Asegurarse de que 'nodes' no esté vacío antes de procesarlo
   if (!nodes || nodes.length === 0) return [];
 
-  // Convertir los IDs de los nodos a las etiquetas de los nodos
   const nodeLabels = {};
   nodes.forEach(node => {
     nodeLabels[node.id] = node.data.label;
   });
 
-  // Devolver las etiquetas de los nodos en el circuito
   return circuit.reverse().map(id => nodeLabels[id]);
 }
 
@@ -81,7 +77,6 @@ export default function GraphEditor() {
         id,
         data: { label: `Nodo ${nds.length}` },
         position: { x: Math.random() * 400, y: Math.random() * 400 },
-        // Estilo de los nodos
         style: { width: 100, height: 100, borderRadius: '50%', backgroundColor: '#007bff', color: '#fff', display: 'flex', justifyContent: 'center', alignItems: 'center' },
       },
     ]);
@@ -95,7 +90,7 @@ export default function GraphEditor() {
     if (!hasEulerianCircuit(nodes, edges)) {
       setEulerianInfo('El grafo NO cumple con el teorema de circuito euleriano.');
     } else {
-      const circuit = findEulerianCircuit(edges, nodes); // Pasar los nodos aquí
+      const circuit = findEulerianCircuit(edges, nodes);
       if (circuit.length === 0) {
         setEulerianInfo('No se pudo encontrar un circuito.');
       } else {
